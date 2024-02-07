@@ -11,6 +11,12 @@ import React, {useState} from 'react';
 import * as Yup from 'yup';
 import {Formik} from 'formik';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+
+const options = {
+  enableVibrateFallback: true,
+  ignoreAndroidSystemSettings: true,
+};
 
 const App = () => {
   const passwordSchema = Yup.object().shape({
@@ -31,7 +37,8 @@ const App = () => {
     setUppercase(false);
     setPasswordAvailable(false);
     setResult("")
-  
+    ReactNativeHapticFeedback.trigger("impactHeavy", options);
+    
   };
 
   const passwordGenerator = (length: number) => {
@@ -57,7 +64,7 @@ const App = () => {
     }
     setResult(password);
     setPasswordAvailable(true);
-    console.log(password);
+    ReactNativeHapticFeedback.trigger("impactHeavy", options);
   };
 
   return (
@@ -82,12 +89,12 @@ const App = () => {
          {/* ==========================================================================================      */}
 
             <View style={styles.passwordHeading}>
-            <Text style={{ fontSize:30, paddingRight:10, fontWeight: 'bold'}}>
+            <Text style={{ fontSize:30, color:"black",paddingRight:10, fontWeight: 'bold'}}>
                 Password length
               </Text>
              
               <TextInput
-                style={{  width: 100 ,fontSize:20,borderBottomWidth:1}}
+                style={{  width: 100 ,color:"black",fontSize:20,borderBottomWidth:1}}
                 value={values.length}
                 onChangeText={handleChange('length')}
                 placeholder="Ex. 8"
@@ -143,7 +150,7 @@ const App = () => {
                     style={styles.generatePassword}
                     onPress={() => handleSubmit()}
                 >
-                  <Text style={{padding: 10, fontSize: 20}}>
+                  <Text style={{padding: 10,color:"black", fontSize: 20}}>
                     Generate
                   </Text>
                 </TouchableOpacity>
@@ -151,7 +158,7 @@ const App = () => {
                 <TouchableOpacity style={styles.resetPassword}
                 onPress={() => reset()}
                 >
-                  <Text style={{padding: 10, fontSize: 20}}>
+                  <Text style={{padding: 10,color:"black", fontSize: 20}}>
                     Reset
                   </Text>
                 </TouchableOpacity>
@@ -162,9 +169,9 @@ const App = () => {
                 {passwordAvailable ? (
                   <View style={styles.resultdiv}>
                   <View style={{flex:1,justifyContent:"center",alignItems:"center"}} >
-                    <Text style={{padding: 10, fontSize: 20}}>The password is</Text>
-                    <Text selectable={true} style={{padding: 10, fontSize: 25, fontWeight:"bold"}}>{result}</Text>
-                    <Text style={{padding: 10, fontSize: 20}}>Hold to copy</Text>
+                    <Text style={{padding: 10,color:"black", fontSize: 20}}>The password is</Text>
+                    <Text selectable={true} style={{padding: 10,color:"black", fontSize: 25, fontWeight:"bold"}}>{result}</Text>
+                    <Text style={{padding: 10,color:"black", fontSize: 20}}>Hold to copy</Text>
                    </View>
                   </View>
                   
